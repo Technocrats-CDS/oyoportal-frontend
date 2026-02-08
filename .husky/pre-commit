@@ -1,9 +1,8 @@
 echo "🔍 Running pre-commit checks on staged files..."
 
-prettier $(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g') --write --ignore-unknown
-git update-index --again
+bunx lint-staged || { echo "❌ Linting failed. Please fix the issues and try again."; exit 1; }
 
 echo "🏗️ Verifying build..."
-npm run build || { echo "❌ Build failed. Please fix the build issues and try again."; exit 1; }
+bun build:once || { echo "❌ Build failed. Please fix the build issues and try again."; exit 1; }
 
 echo "✅ Pre-commit checks passed! Committing changes..."

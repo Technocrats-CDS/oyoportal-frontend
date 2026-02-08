@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
+import Providers from "./providers";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
@@ -10,7 +12,10 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "OyoPortal",
+  title: {
+    default: "OyoPortal",
+    template: "%s | OyoPortal",
+  },
   description: "OyoPortal",
 };
 
@@ -21,7 +26,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${lato.variable} antialiased`}>{children}</body>
+      <body className={`${lato.variable} antialiased`}>
+        <Providers>
+          {children}
+          <ReactQueryDevtools
+            initialIsOpen={false}
+            buttonPosition="top-right"
+            position="right"
+          />
+        </Providers>
+      </body>
     </html>
   );
 }
