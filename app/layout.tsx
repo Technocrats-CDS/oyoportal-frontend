@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Lato } from "next/font/google";
+import { Public_Sans } from "next/font/google";
 import "./globals.css";
+import "material-icons/iconfont/material-icons.css";
 import Providers from "./providers";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
-const lato = Lato({
-  weight: ["100", "300", "400", "700", "900"],
+const publicSans = Public_Sans({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
-  variable: "--font-lato",
+  variable: "--font-public-sans",
   display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
     default: "OyoPortal",
-    template: "%s | OyoPortal",
+    template: "%s - OyoPortal",
   },
   description: "OyoPortal",
 };
@@ -26,9 +29,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${lato.variable} antialiased`}>
+      <body
+        className={`${publicSans.variable} antialiased flex flex-col min-h-screen`}
+      >
         <Providers>
-          {children}
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
           <ReactQueryDevtools
             initialIsOpen={false}
             buttonPosition="top-right"
