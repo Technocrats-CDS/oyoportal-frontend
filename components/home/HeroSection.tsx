@@ -13,20 +13,20 @@ export default function HeroSection() {
               fill
               className="object-cover object-center"
               loading="eager"
+              priority
             />
             <div className="absolute inset-0 bg-linear-to-r from-[#104713]/80 to-[#0A3428]" />
           </div>
 
-          <div className="hidden lg:block absolute lg:-left-8 xl:-left-2 bottom-0 z-20">
-            <Image
-              src="/female-corps-member.png"
-              alt="Female Corps Member"
-              width={460}
-              height={500}
-              className="w-[380px] xl:w-[460px] h-auto object-contain object-bottom -scale-x-100 drop-shadow-2xl pointer-events-none"
-              loading="eager"
-            />
-          </div>
+          <Image
+            src="/female-corps-member.png"
+            alt="Female Corps Member"
+            width={460}
+            height={500}
+            className="hidden lg:block absolute lg:-left-8 xl:-left-2 bottom-0 z-20 w-[380px] xl:w-[460px] h-auto object-contain object-bottom -scale-x-100 drop-shadow-2xl pointer-events-none"
+            loading="eager"
+            priority
+          />
 
           <div className="absolute top-6 right-6 md:top-8 md:right-10 bg-white/10 backdrop-blur-md border-none rounded-full px-4 py-1.5 flex items-center gap-2 z-10 shadow-sm">
             <span className="size-2 rounded-full bg-[#FFD700]"></span>
