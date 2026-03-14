@@ -1,5 +1,5 @@
 "use client";
-import JobPlacementCard from "@/components/careers/placementCard";
+import JobPlacementList from "@/components/careers/jobPlacementList";
 import SideFilterBar from "@/components/careers/filterSidebar";
 import RolesList from "@/components/careers/rolesList";
 import {
@@ -31,7 +31,7 @@ export default function CareersAndPlacements() {
           Available Job Placements
         </h1>
         <div className="flex flex-col gap-6">
-          <JobPlacementCard />
+          <JobPlacementList />
           <div className="flex flex-col lg:flex-row gap-8 w-full">
             <SideFilterBar filters={filters} setFilters={setFilters} />
             <div className="flex flex-col gap-6 w-full">
