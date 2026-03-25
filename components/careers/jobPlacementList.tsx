@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { Button } from "@/components/ui/shadcn/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef, useState, useEffect, useCallback } from "react";
 
@@ -8,6 +7,7 @@ interface PlacementProp {
 	name: string;
 	image: string;
 	color: string;
+	accent: string;
 	address: string;
 	openings: number;
 	tags: string[];
@@ -19,7 +19,8 @@ const placements: PlacementProp[] = [
 	{
 		name: "MediTech",
 		image: "/corps-member-pfp.png",
-		color: "bg-[#D3F7ED]",
+		color: "bg-[#ecfdf5]",
+		accent: "bg-[#059669] text-white",
 		address: "Beside NYSC Secretariat, Agodi, Ibadan Oyo state",
 		openings: 3,
 		tags: ["UI/UX", "Secretary", "Assistant"],
@@ -29,7 +30,8 @@ const placements: PlacementProp[] = [
 	{
 		name: "Agbowo Community High",
 		image: "/corps-member-pfp.png",
-		color: "bg-[#FFE0CC]",
+		color: "bg-[#fff7ed]",
+		accent: "bg-[#ea580c] text-white",
 		address: "Beside NYSC Secretariat, Agodi, Ibadan Oyo state",
 		openings: 3,
 		tags: ["Teacher"],
@@ -39,7 +41,8 @@ const placements: PlacementProp[] = [
 	{
 		name: "Seun Cooking Chops",
 		image: "/corps-member-pfp.png",
-		color: "bg-[#E2DBFA]",
+		color: "bg-[#f5f3ff]",
+		accent: "bg-[#7c3aed] text-white",
 		address: "Beside NYSC Secretariat, Agodi, Ibadan Oyo state",
 		openings: 3,
 		tags: ["Retailer", "Cook", "Baker"],
@@ -49,7 +52,8 @@ const placements: PlacementProp[] = [
 	{
 		name: "MediTech",
 		image: "/corps-member-pfp.png",
-		color: "bg-[#D3F7ED]",
+		color: "bg-[#ecfdf5]",
+		accent: "bg-[#059669] text-white",
 		address: "Beside NYSC Secretariat, Agodi, Ibadan Oyo state",
 		openings: 3,
 		tags: ["UI/UX", "Secretary", "Assistant"],
@@ -75,12 +79,9 @@ export default function JobPlacementList() {
 		const node = scrollRef.current;
 		if (node) {
 			checkScroll();
-
 			const timer = setTimeout(checkScroll, 100);
-
 			window.addEventListener("resize", checkScroll);
 			node.addEventListener("scroll", checkScroll);
-
 			return () => {
 				clearTimeout(timer);
 				window.removeEventListener("resize", checkScroll);
@@ -91,96 +92,93 @@ export default function JobPlacementList() {
 
 	const scroll = (direction: "left" | "right") => {
 		if (scrollRef.current) {
-			const scrollAmount = 420;
 			scrollRef.current.scrollBy({
-				left: direction === "left" ? -scrollAmount : scrollAmount,
+				left: direction === "left" ? -400 : 400,
 				behavior: "smooth",
 			});
 		}
 	};
 
 	return (
-		<div className="group relative w-full mt-8">
-			{showLeftBtn && (
-				<button
-					type="button"
-					onClick={() => scroll("left")}
-					className="absolute -left-5 top-1/2 z-10 -translate-y-1/2  bg-black/20 text-[#000000] border border-black-200 p-2 rounded-full shadow-lg hover:bg-slate-50 transition-all"
-				>
-					<ChevronLeft size={24} />
-				</button>
-			)}
+		<div className="group/carousel relative w-full mt-8">
+			<button
+				type="button"
+				onClick={() => scroll("left")}
+				className={`absolute -left-3 top-1/2 z-10 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full shadow-md flex items-center justify-center text-slate-600 hover:bg-white hover:shadow-lg hover:text-heading transition-all ${showLeftBtn ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}`}
+			>
+				<ChevronLeft size={18} />
+			</button>
 
 			<div
 				ref={scrollRef}
-				className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-4 px-2"
-				style={{
-					scrollbarWidth: "none",
-					msOverflowStyle: "none",
-					display: "flex",
-					flexWrap: "nowrap",
-				}}
+				className="flex gap-4 overflow-x-auto scroll-smooth pb-2 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
 			>
-				{placements.map((placement) => (
-					<PlacementCard props={placement} key={placement.name} />
+				{placements.map((placement, index) => (
+					<PlacementCard props={placement} key={`${placement.name}-${index}`} />
 				))}
 			</div>
 
-			{showRightBtn && (
-				<button
-					type="button"
-					onClick={() => scroll("right")}
-					className="absolute -right-5 top-1/2 z-10 -translate-y-1/2 bg-black/20 text-[#000000] border border-black-200 p-2 rounded-full shadow-lg hover:bg-slate-50 transition-all"
-				>
-					<ChevronRight size={24} />
-				</button>
-			)}
+			<button
+				type="button"
+				onClick={() => scroll("right")}
+				className={`absolute -right-3 top-1/2 z-10 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm border border-slate-200 rounded-full shadow-md flex items-center justify-center text-slate-600 hover:bg-white hover:shadow-lg hover:text-heading transition-all ${showRightBtn ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}`}
+			>
+				<ChevronRight size={18} />
+			</button>
 		</div>
 	);
 }
 
 export function PlacementCard({ props }: { props: PlacementProp }) {
 	return (
-		<div className="flex flex-col min-w-100 min-h-65 p-2.5 bg-[#FFFFFF] border border-[#E2E8F0] rounded-xl">
-			<div className={`flex flex-col gap-3.5 ${props.color} p-2.5 rounded-xl`}>
-				<div className="flex gap-2.5 items-center">
-					<div className="w-9.75 h-9.75">
+		<div className="flex flex-col w-85 shrink-0 snap-start bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
+			<div className={`${props.color} p-5`}>
+				<div className="flex items-center gap-3 mb-4">
+					<div className="w-10 h-10 rounded-xl overflow-hidden ring-2 ring-white shadow-sm shrink-0">
 						<Image
-							style={{ objectFit: "contain" }}
 							src={props.image}
-							width={100}
-							height={100}
-							alt="Company Image"
-							className="rounded-full"
+							width={40}
+							height={40}
+							alt={props.name}
+							className="w-full h-full object-cover"
 						/>
 					</div>
-					<h1 className="text-lg text-center text-[#0F172A]">{props.name}</h1>
+					<div>
+						<h3 className="font-bold text-sm text-heading leading-tight">
+							{props.name}
+						</h3>
+						<span
+							className={`inline-flex items-center text-[10px] font-bold px-2 py-0.5 rounded-full mt-1 ${props.accent}`}
+						>
+							{props.openings} {props.openings === 1 ? "Opening" : "Openings"}
+						</span>
+					</div>
 				</div>
-				<div className="flex gap-2 text-[#64748B] text-sm w-[70%]">
-					<span
-						className="material-icons mt-2"
-						style={{ fontSize: "16px", lineHeight: "5px" }}
-					>
+				<div className="flex items-start gap-1.5 text-slate-500 text-xs leading-snug mb-4">
+					<span className="material-icons text-[14px] mt-px shrink-0">
 						location_on
 					</span>
-					<span>{props.address}</span>
+					<span className="line-clamp-2">{props.address}</span>
 				</div>
-				<Button className="font-bold">{props.openings} Openings</Button>
-
-				<div className="flex gap-8 px-2.5">
+				<div className="flex flex-wrap gap-1.5">
 					{props.tags.map((tag) => (
 						<span
 							key={tag}
-							className="border border-[#000000] rounded-4xl text-[10px] text-[#0F172A] leading-5 py-1 px-6 h-8 text-center"
+							className="bg-white/70 backdrop-blur-sm border border-slate-200/60 rounded-full text-[11px] font-medium text-slate-700 px-3 py-1"
 						>
 							{tag}
 						</span>
 					))}
 				</div>
 			</div>
-			<div className="flex justify-between p-2 items-center text-[#0F172A]">
-				<span className="text-xl font-semibold">N{props.salary}/ Month</span>
-				<span className="text-xs">{props.working_days} days/wk</span>
+			<div className="flex items-center justify-between px-5 py-3.5 border-t border-slate-100">
+				<span className="text-base font-bold text-heading">
+					₦{props.salary}
+					<span className="text-xs font-normal text-slate-400">/mo</span>
+				</span>
+				<span className="text-xs text-slate-400 font-medium">
+					{props.working_days} days/wk
+				</span>
 			</div>
 		</div>
 	);

@@ -25,7 +25,7 @@ export default function CareersAndPlacements() {
 		category: "institutions",
 	});
 	return (
-		<div className="flex flex-col min-h-screen w-full overflow-x-hidden bg-slate-50/30">
+		<div className="flex flex-col min-h-screen w-full overflow-x-hidden">
 			<section className="w-full px-4 md:px-6 lg:px-8 mt-6 max-w-7xl mx-auto">
 				<h1 className="text-[#0F172A] text-xl font-bold text-leading">
 					Available Job Placements
@@ -75,13 +75,13 @@ export default function CareersAndPlacements() {
 									roles available
 								</p>
 								<div className="flex gap-2">
-									<div className="bg-[#FFFFFF] h-8 w-8 border border-[#E2E8F0] p-1 rounded-sm">
+									<div className="bg-white h-8 w-8 border border-slate-200 p-1 rounded-lg">
 										<span className="material-icons-outlined h-2.5 w-2.5 font-bold">
 											grid_view
 										</span>
 									</div>
-									<div className="bg-brand h-8 w-8 border border-[#E2E8F0] p-1 rounded-sm">
-										<span className="material-icons-outlined text-[#FFFFFF] h-2.5 w-2.5">
+									<div className="bg-brand h-8 w-8 border border-[#E2E8F0] p-1 rounded-lg">
+										<span className="material-icons-outlined text-white h-2.5 w-2.5">
 											view_list
 										</span>
 									</div>

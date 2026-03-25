@@ -25,7 +25,7 @@ export default function CdsList() {
 
 	return (
 		<section className="w-full px-4 md:px-6 lg:px-8 py-16">
-			<div className="container mx-auto max-w-7xl">
+			<div className="max-w-7xl mx-auto">
 				<div className="flex flex-col md:flex-row gap-2 mb-10">
 					<div className="relative flex-1">
 						<span className="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-[#94A3B8]">
@@ -115,7 +115,7 @@ export default function CdsList() {
 
 								<Link
 									href="#"
-									className="flex items-center gap-1 text-transparent bg-clip-text bg-linear-brand font-bold text-sm bg-size-[200%_200%] bg-left hover:bg-right transition-all duration-500 group-hover:cursor-pointer"
+									className="flex items-center gap-1 text-brand font-bold text-sm hover:opacity-80 transition-opacity"
 								>
 									View Group
 									<span className="material-icons">chevron_right</span>

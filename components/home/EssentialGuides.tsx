@@ -30,37 +30,42 @@ export default function EssentialGuides() {
 	];
 
 	return (
-		<section className="w-full px-4 md:px-6 lg:px-8 py-16 bg-slate-50">
-			<div className="container mx-auto max-w-7xl">
+		<section className="w-full px-4 md:px-6 lg:px-8 py-16 bg-(--brand-50)/40">
+			<div className="max-w-7xl mx-auto">
 				<div className="flex items-center gap-3 mb-8">
-					<span className="material-icons text-[#137FEC]">local_library</span>
+					<div className="w-1 h-6 rounded-full bg-brand" />
 					<h2 className="text-xl font-bold text-heading">Essential Guides</h2>
 				</div>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
 					{guides.map((guide) => (
 						<Link
 							key={guide.title}
 							href="#"
-							className="card group flex flex-col hover:shadow-md transition-shadow"
+							className="group bg-white rounded-xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 hover:-translate-y-1"
 						>
-							<div className="relative w-full h-40 rounded-xl overflow-hidden mb-5">
+							<div className="relative w-full h-40 overflow-hidden">
 								<Image
 									src={guide.img}
 									alt={guide.title}
 									fill
 									className="object-cover group-hover:scale-105 transition-transform duration-500"
 								/>
-								<div className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-blue-500 shadow-sm z-10">
-									<span className="material-icons-outlined text-[16px]">
+								<div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent" />
+								<div className="absolute top-3 right-3 w-8 h-8 bg-white/90 backdrop-blur rounded-lg flex items-center justify-center shadow-sm">
+									<span className="material-icons text-brand text-[16px]">
 										{guide.icon}
 									</span>
 								</div>
 							</div>
-							<h3 className="text-heading font-bold text-lg mb-2">
-								{guide.title}
-							</h3>
-							<p className="text-sm leading-relaxed">{guide.desc}</p>
+							<div className="p-5">
+								<h3 className="text-heading font-bold text-[15px] mb-1.5 group-hover:text-brand transition-colors">
+									{guide.title}
+								</h3>
+								<p className="text-sm text-slate-500 leading-relaxed">
+									{guide.desc}
+								</p>
+							</div>
 						</Link>
 					))}
 				</div>

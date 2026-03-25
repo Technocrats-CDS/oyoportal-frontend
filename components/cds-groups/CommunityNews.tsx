@@ -67,7 +67,7 @@ export default function CommunityNews() {
 
 	return (
 		<section className="w-full px-4 md:px-6 lg:px-8 mt-6">
-			<div className="container mx-auto max-w-7xl pt-8 pb-6">
+			<div className="max-w-7xl mx-auto pt-8 pb-6">
 				<h2 className="text-[22px] font-bold text-heading mb-6">
 					Community News
 				</h2>
@@ -162,17 +162,17 @@ export default function CommunityNews() {
 					</div>
 				</div>
 
-				<div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+				<div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-6">
 					<button
 						type="button"
-						className="lg:col-span-2 w-full py-3.5 bg-brand text-white font-semibold rounded-md hover:bg-brand-600 transition-colors shadow-[0_4px_6px_-4px_rgba(20,113,25,0.25),0_10px_15px_-3px_rgba(20,113,25,0.25)] flex items-center justify-center gap-2"
+						className="lg:col-span-2 btn btn--brand btn--size-lg w-full rounded-xl font-semibold text-sm"
 					>
 						<span className="material-icons text-lg">add</span>
 						View All CDS Projects
 					</button>
 					<button
 						type="button"
-						className="w-full text-center py-3.5 rounded-md bg-linear-brand text-white shadow-[0_4px_6px_-4px_rgba(20,113,25,0.25),0_10px_15px_-3px_rgba(20,113,25,0.25)] font-semibold flex items-center justify-center gap-2 cursor-pointer bg-size-[200%_200%] bg-left hover:bg-right transition-all duration-500"
+						className="btn btn--outline-brand btn--size-lg w-full rounded-xl font-semibold text-sm"
 					>
 						<span className="material-icons text-lg">add</span>
 						Propose New Project

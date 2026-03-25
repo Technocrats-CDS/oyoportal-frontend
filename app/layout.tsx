@@ -36,11 +36,7 @@ export default function RootLayout({
 				<Providers>
 					<Header />
 					<HomeHeroClient />
-					<main className="flex-1 w-full">
-						<div className="px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
-							{children}
-						</div>
-					</main>
+					<main className="flex-1 w-full">{children}</main>
 					<Footer />
 					<ReactQueryDevtools
 						initialIsOpen={false}

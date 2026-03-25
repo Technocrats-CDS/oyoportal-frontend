@@ -1,127 +1,125 @@
 import Link from "next/link";
 
+const mainCards = [
+	{
+		title: "Find my LGA",
+		desc: "Locate your Local Government Area and know your LGA Inspector.",
+		icon: "location_city",
+		href: "/states-and-lga",
+		color: "bg-[var(--brand-50)]",
+		iconColor: "text-brand",
+	},
+	{
+		title: "Find my PPA",
+		desc: "Discover your Primary Place of Assignment and get directions.",
+		icon: "business",
+		href: "/ppa",
+		color: "bg-blue-50",
+		iconColor: "text-blue-600",
+	},
+	{
+		title: "Job Board",
+		desc: "Browse job openings from verified employers within Oyo State.",
+		icon: "work_outline",
+		href: "/careers-and-placements",
+		color: "bg-amber-50",
+		iconColor: "text-amber-600",
+	},
+];
+
+const sideLinks = [
+	{
+		title: "Monthly Clearance",
+		desc: "Biometrics dates across all local governments",
+		icon: "event_available",
+		href: "/clearance",
+	},
+	{
+		title: "CDS & SAED News",
+		desc: "Latest CDS and SAED news and updates",
+		icon: "campaign",
+		href: "/news",
+	},
+	{
+		title: "Internship Positions",
+		desc: "Available internships for corps members",
+		icon: "trending_up",
+		href: "/internships",
+	},
+];
+
 export default function QuickAccess() {
 	return (
-		<section className="w-full px-4 md:px-6 lg:px-8 py-12">
-			<div className="container mx-auto max-w-7xl">
-				<h2 className="text-xl font-bold text-heading mb-8">Quick Access</h2>
+		<section className="w-full px-4 md:px-6 lg:px-8 py-14">
+			<div className="max-w-7xl mx-auto">
+				<div className="flex items-center gap-3 mb-8">
+					<div className="w-1 h-6 rounded-full bg-brand" />
+					<h2 className="text-xl font-bold text-heading">Quick Access</h2>
+				</div>
 
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-					{/* Main Cards (LGA, PPA, Job Board) */}
-					<div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-						{/* LGA Card */}
-						<div className="card border border-[#E2E8F0] flex flex-col items-start gap-4 hover:shadow-md transition-shadow">
-							<div className="size-12 rounded-md bg-[#137FEC]/10 flex items-center justify-center text-brand">
-								<span className="material-icons text-[24px]">school</span>
-							</div>
-							<div className="flex-1">
-								<h3 className="text-brand font-semibold mb-2">LGA</h3>
-								<p className="text-sm leading-tight mb-6">
-									Locate Your Local government area, and know your local
-									government Inspector
-								</p>
-							</div>
-							<Link
-								href="/lga"
-								className="btn btn--size-default w-full text-center bg-linear-brand text-white font-semibold bg-size-[200%_200%] bg-left hover:bg-right transition-all duration-500"
+					<div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+						{mainCards.map((card) => (
+							<div
+								key={card.title}
+								className="card flex flex-col items-start gap-4"
 							>
-								Find my LGA
-							</Link>
-						</div>
-
-						{/* PPA Card */}
-						<div className="card border border-[#E2E8F0] flex flex-col items-start gap-4 hover:shadow-md transition-shadow">
-							<div className="size-12 rounded-xl bg-[#EAF4FD] flex items-center justify-center text-[#137FEC]">
-								<span className="material-icons text-[24px]">business</span>
+								<div
+									className={`size-11 rounded-xl ${card.color} flex items-center justify-center`}
+								>
+									<span
+										className={`material-icons text-[22px] ${card.iconColor}`}
+									>
+										{card.icon}
+									</span>
+								</div>
+								<div className="flex-1">
+									<h3 className="text-heading font-bold text-[15px] mb-1.5">
+										{card.title}
+									</h3>
+									<p className="text-sm leading-relaxed text-slate-500">
+										{card.desc}
+									</p>
+								</div>
+								<Link
+									href={card.href}
+									className="btn btn--brand btn--size-default w-full text-center rounded-lg font-semibold text-xs mt-2"
+								>
+									{card.title}
+								</Link>
 							</div>
-							<div className="flex-1">
-								<h3 className="text-[#137FEC] font-semibold mb-2">PPA</h3>
-								<p className="text-sm leading-tight mb-6">
-									Locate Your Local government area, and know your local
-									government Inspector
-								</p>
-							</div>
-							<Link
-								href="/ppa"
-								className="btn btn--size-default w-full text-center bg-linear-to-r from-[#137FEC] to-[#12E3E3] text-white font-semibold bg-size-[200%_200%] bg-left hover:bg-right transition-all duration-500"
-							>
-								Find my PPA
-							</Link>
-						</div>
-
-						{/* Job Board Card */}
-						<div className="card border border-[#E2E8F0] flex flex-col items-start gap-4 hover:shadow-md transition-shadow">
-							<div className="size-12 rounded-xl bg-[#FEF1E8] flex items-center justify-center text-[#F97316]">
-								<span className="material-icons text-[24px]">work</span>
-							</div>
-							<div className="flex-1">
-								<h3 className="text-[#F97316] font-semibold mb-2">Job Board</h3>
-								<p className="text-sm leading-tight mb-6">
-									Locate Your Local government area, and know your local
-									government Inspector
-								</p>
-							</div>
-							<Link
-								href="/jobs"
-								className="btn btn--size-default w-full text-center bg-linear-to-r from-[#F97316] to-[#F2B119] text-white font-semibold bg-size-[200%_200%] bg-left hover:bg-right transition-all duration-500"
-							>
-								Job Openings
-							</Link>
-						</div>
+						))}
 					</div>
 
-					{/* Side Links */}
-					<div className="lg:col-span-4 card border border-[#E2E8F0] flex flex-col justify-between">
-						<Link
-							href="/clearance"
-							className="group flex items-center gap-4 p-3 -mx-3 rounded-xl hover:bg-slate-50 transition-all"
-						>
-							<div className="size-12 shrink-0 rounded-lg bg-[#137FEC]/10 flex items-center justify-center text-brand group-hover:bg-brand group-hover:text-white group-hover:shadow-md transition-all duration-300">
-								<span className="material-icons text-[24px]">school</span>
-							</div>
-							<div className="flex-1">
-								<h4 className="text-gray-900 font-bold text-sm group-hover:text-brand transition-colors">
-									Monthly clearance News
-								</h4>
-								<p className="text-gray-500 text-xs text-balance mt-1">
-									Find Dates for biometrics across all local governments
-								</p>
-							</div>
-						</Link>
-
-						<Link
-							href="/news"
-							className="group flex items-center gap-4 p-3 -mx-3 rounded-xl hover:bg-slate-50 transition-all"
-						>
-							<div className="size-12 shrink-0 rounded-lg bg-[#137FEC]/10 flex items-center justify-center text-brand group-hover:bg-brand group-hover:text-white group-hover:shadow-md transition-all duration-300">
-								<span className="material-icons text-[24px]">description</span>
-							</div>
-							<div className="flex-1">
-								<h4 className="text-gray-900 font-bold text-sm group-hover:text-brand transition-colors">
-									CDS and SAED News
-								</h4>
-								<p className="text-gray-500 text-xs text-balance mt-1">
-									All CDS and SAED News and Updates
-								</p>
-							</div>
-						</Link>
-
-						<Link
-							href="/internships"
-							className="group flex items-center gap-4 p-3 -mx-3 rounded-xl hover:bg-slate-50 transition-all"
-						>
-							<div className="size-12 shrink-0 rounded-lg bg-[#137FEC]/10 flex items-center justify-center text-brand group-hover:bg-brand group-hover:text-white group-hover:shadow-md transition-all duration-300">
-								<span className="material-icons text-[24px]">cases</span>
-							</div>
-							<div className="flex-1">
-								<h4 className="text-gray-900 font-bold text-sm group-hover:text-brand transition-colors">
-									Available Internship Positions
-								</h4>
-								<p className="text-gray-500 text-xs text-balance mt-1">
-									Find Dates for biometrics across all local governments
-								</p>
-							</div>
-						</Link>
+					<div className="lg:col-span-4 card flex flex-col justify-between gap-1">
+						{sideLinks.map((link, index) => (
+							<Link
+								key={link.title}
+								href={link.href}
+								className={`group flex items-center gap-4 p-3 -mx-1 rounded-xl hover:bg-slate-50/80 transition-all ${
+									index < sideLinks.length - 1
+										? "border-b border-slate-100"
+										: ""
+								}`}
+							>
+								<div className="size-10 shrink-0 rounded-lg bg-(--brand-50) flex items-center justify-center text-brand group-hover:bg-brand group-hover:text-white transition-all duration-200">
+									<span className="material-icons text-[20px]">
+										{link.icon}
+									</span>
+								</div>
+								<div className="flex-1 min-w-0">
+									<h4 className="text-heading font-semibold text-sm group-hover:text-brand transition-colors leading-tight">
+										{link.title}
+									</h4>
+									<p className="text-slate-400 text-xs mt-0.5 truncate">
+										{link.desc}
+									</p>
+								</div>
+								<span className="material-icons text-slate-300 text-[18px] group-hover:text-brand group-hover:translate-x-0.5 transition-all">
+									chevron_right
+								</span>
+							</Link>
+						))}
 					</div>
 				</div>
 			</div>
