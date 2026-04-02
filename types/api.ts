@@ -1,7 +1,7 @@
 export interface StrapiResponse<T> {
   data: T;
   meta: {
-    pagination: {
+    pagination?: {
       page: number;
       pageSize: number;
       pageCount: number;

@@ -40,3 +40,20 @@ export const getArticles = async ({
 
   return response.data;
 };
+
+export const getArticleById = async (
+  id: string | number,
+  populate = "*",
+): Promise<StrapiResponse<Article>> => {
+  const params = new URLSearchParams();
+
+  if (populate) {
+    params.append("populate", populate);
+  }
+
+  const response = await api.get<StrapiResponse<Article>>(
+    `/articles/${id}?${params.toString()}`,
+  );
+
+  return response.data;
+};
