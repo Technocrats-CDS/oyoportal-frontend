@@ -32,3 +32,30 @@ export interface CdsGroupParams {
   page?: number;
   pageSize?: number;
 }
+
+export interface Announcement {
+  id: string | number;
+  documentId?: string;
+  slug: string;
+  title: string;
+  content: string;
+  publish_at: string;
+  isActive: boolean;
+  status: string;
+  priority: number;
+  views: number;
+  expires_at: string;
+  tag: string;
+  LGA?: unknown[];
+  CDSGroup?: unknown[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface AnnouncementParams {
+  page?: number;
+  pageSize?: number;
+  sort?: string;
+  populate?: string;
+}
