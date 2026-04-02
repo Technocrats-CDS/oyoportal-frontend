@@ -59,3 +59,65 @@ export interface AnnouncementParams {
   sort?: string;
   populate?: string;
 }
+
+export interface StrapiMedia {
+  id: string | number;
+  documentId?: string;
+  name: string;
+  alternativeText?: string;
+  caption?: string;
+  url: string;
+  formats?: unknown;
+  hash?: string;
+  ext?: string;
+  mime?: string;
+  size?: number;
+  width?: number;
+  height?: number;
+  provider?: string;
+}
+
+export interface ArticleAuthor {
+  id: string | number;
+  documentId?: string;
+  name: string;
+  email?: string;
+  avatar?: StrapiMedia;
+}
+
+export interface ArticleCategory {
+  id: string | number;
+  documentId?: string;
+  name: string;
+  slug: string;
+  description?: string;
+}
+
+export interface ArticleBlock {
+  id: string | number;
+  __component: string;
+  [key: string]: unknown;
+}
+
+export interface Article {
+  id: string | number;
+  documentId?: string;
+  title: string;
+  description: string;
+  slug: string;
+  cover?: StrapiMedia;
+  author?: ArticleAuthor;
+  category?: ArticleCategory;
+  blocks?: ArticleBlock[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+export interface ArticleParams {
+  page?: number;
+  pageSize?: number;
+  sort?: string;
+  populate?: string;
+  filters?: Record<string, unknown>;
+}
