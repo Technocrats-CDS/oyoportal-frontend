@@ -1,5 +1,5 @@
 export interface StrapiResponse<T> {
-  data: T;
+  data: T | null;
   meta: {
     pagination?: {
       page: number;
@@ -7,23 +7,30 @@ export interface StrapiResponse<T> {
       pageCount: number;
       total: number;
     };
+    [key: string]: unknown;
+  };
+  error?: {
+    status: number;
+    name: string;
+    message: string;
+    details?: unknown;
   };
 }
 
 export interface CdsGroup {
-  id: string | number;
+  id?: string | number;
   documentId?: string;
   title: string;
   name: string;
   description: string;
-  slug: string;
-  status: string;
-  tag: string;
-  isActive: boolean;
-  activities: string;
+  slug?: string;
+  status?: "active" | "inactive" | "draft";
+  tag?: string;
+  isActive?: boolean;
+  activities?: string;
   createdAt: string;
   updatedAt: string;
-  publishedAt: string;
+  publishedAt?: string;
 }
 
 export interface CdsGroupParams {
@@ -34,23 +41,22 @@ export interface CdsGroupParams {
 }
 
 export interface Announcement {
-  id: string | number;
+  id?: string | number;
   documentId?: string;
-  slug: string;
+  slug?: string;
   title: string;
   content: string;
-  publish_at: string;
-  isActive: boolean;
-  status: string;
-  priority: number;
-  views: number;
-  expires_at: string;
-  tag: string;
+  publishedAt?: string;
+  isActive?: boolean;
+  status?: string;
+  priority?: number;
+  views?: number;
+  expiresAt?: string;
+  tag?: string;
   LGA?: unknown[];
   CDSGroup?: unknown[];
   createdAt: string;
   updatedAt: string;
-  publishedAt: string;
 }
 
 export interface AnnouncementParams {
@@ -61,7 +67,7 @@ export interface AnnouncementParams {
 }
 
 export interface StrapiMedia {
-  id: string | number;
+  id?: string | number;
   documentId?: string;
   name: string;
   alternativeText?: string;
@@ -78,7 +84,7 @@ export interface StrapiMedia {
 }
 
 export interface ArticleAuthor {
-  id: string | number;
+  id?: string | number;
   documentId?: string;
   name: string;
   email?: string;
@@ -86,7 +92,7 @@ export interface ArticleAuthor {
 }
 
 export interface ArticleCategory {
-  id: string | number;
+  id?: string | number;
   documentId?: string;
   name: string;
   slug: string;
@@ -94,13 +100,13 @@ export interface ArticleCategory {
 }
 
 export interface ArticleBlock {
-  id: string | number;
+  id?: string | number;
   __component: string;
   [key: string]: unknown;
 }
 
 export interface Article {
-  id: string | number;
+  id?: string | number;
   documentId?: string;
   title: string;
   description: string;
@@ -111,7 +117,7 @@ export interface Article {
   blocks?: ArticleBlock[];
   createdAt: string;
   updatedAt: string;
-  publishedAt: string;
+  publishedAt?: string;
 }
 
 export interface ArticleParams {
