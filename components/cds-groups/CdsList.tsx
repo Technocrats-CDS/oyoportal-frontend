@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
-import Image from "next/image";
+import { useCdsGroups } from "@/lib/hooks/useCdsGroups";
+import { useDebounce } from "@/lib/hooks/useDebounce";
 import Link from "next/link";
+import { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,8 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/shadcn/select";
-import { useCdsGroups } from "@/lib/hooks/useCdsGroups";
-import { useDebounce } from "@/lib/hooks/useDebounce";
 
 export default function CdsList() {
   const [searchInput, setSearchInput] = useState("");
