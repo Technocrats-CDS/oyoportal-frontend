@@ -1,8 +1,8 @@
 echo "🔍 Running pre-commit checks on staged files..."
 
-bunx lint-staged || { echo "❌ Linting failed. Please fix the issues and try again."; exit 1; }
+npx lint-staged || { echo "❌ Linting failed. Please fix the issues and try again."; exit 1; }
 
 echo "🏗️ Verifying build..."
-bun build:once || { echo "❌ Build failed. Please fix the build issues and try again."; exit 1; }
+npm run build:once || { echo "❌ Build failed. Please fix the build issues and try again."; exit 1; }
 
 echo "✅ Pre-commit checks passed! Committing changes..."

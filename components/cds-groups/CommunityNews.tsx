@@ -1,57 +1,25 @@
 "use client";
+import { useAnnouncements } from "@/lib/hooks/useAnnouncements";
+import { useArticles } from "@/lib/hooks/useArticles";
+import dayjs from "dayjs";
 import Image from "next/image";
 import { useState } from "react";
 
 export default function CommunityNews() {
 	const [activeIndex, setActiveIndex] = useState(0);
 
-	const featuredNews = [
-		{
-			title:
-				"NYSC COMMUNITY DEVELOPMENT SERVICE GROUPS, THEIR PURPOSES AND ACTIVITIES",
-			image: "/gallery-image3.png",
-			author: "Okunlola Rachael",
-			authorImg:
-				"https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=100",
-		},
-		{
-			title: "IKOYI MEMBERS EMBARK ON MASSIVE ROAD CLEANING EXERCISE",
-			image: "/gallery-image2.png",
-			author: "Chibuzor Adam",
-			authorImg:
-				"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=100",
-		},
-		{
-			title: "ICT CDS TRAINS OVER 500 STUDENTS IN RURAL SCHOOLS",
-			image: "/hero-image.png",
-			author: "Olaoluwa Rebecca",
-			authorImg:
-				"https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=100",
-		},
-	];
+	const { data: featuredNewsData } = useAnnouncements({
+		page: 1,
+		pageSize: 3,
+	});
 
-	const sideNews = [
-		{
-			title: "Oyo state governor gifts PCMs 1M Naira",
-			date: new Date().toDateString(),
-			image: "/gallery-image3.png",
-		},
-		{
-			title: "Oyo state governor gifts PCMs 1M Naira",
-			date: new Date().toDateString(),
-			image: "/gallery-image4.png",
-		},
-		{
-			title: "Oyo state governor gifts PCMs 1M Naira",
-			date: new Date().toDateString(),
-			image: "/gallery-image2.png",
-		},
-		{
-			title: "Oyo state governor gifts PCMs 1M Naira",
-			date: new Date().toDateString(),
-			image: "/gallery-image5.png",
-		},
-	];
+	const { data: sideNewsData } = useArticles({
+		page: 1,
+		pageSize: 4,
+	});
+
+	const featuredNews = featuredNewsData?.data || [];
+	const sideNews = sideNewsData?.data || [];
 
 	const handleNext = () => {
 		setActiveIndex((prev) => (prev + 1) % featuredNews.length);
@@ -74,13 +42,19 @@ export default function CommunityNews() {
 
 				<div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 					<div className="lg:col-span-2 relative rounded-2xl overflow-hidden h-75 md:h-100 lg:h-115 group shadow-sm flex flex-col justify-end">
-						<Image
-							key={currentFeaturedNews.image}
-							src={currentFeaturedNews.image}
-							alt={currentFeaturedNews.title}
-							fill
-							className="object-cover group-hover:scale-110 transition-transform duration-700 animate-in fade-in"
-						/>
+						{currentFeaturedNews && (
+							<Image
+								key={currentFeaturedNews.id}
+								src={
+									["/gallery-image1.png", "/gallery-image2.png", "/gallery-image3.png", "/gallery-image4.png", "/gallery-image5.png"][
+										activeIndex
+									]
+								}
+								alt={currentFeaturedNews.title || "Featured News"}
+								fill
+								className="object-cover group-hover:scale-110 transition-transform duration-700 animate-in fade-in"
+							/>
+						)}
 						<div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent pointer-events-none z-0" />
 
 						<button
@@ -117,33 +91,20 @@ export default function CommunityNews() {
 
 						<div className="relative z-10 p-6 md:p-8">
 							<h3 className="text-white font-bold text-2xl md:text-3xl leading-tight mb-2 max-w-xl">
-								{currentFeaturedNews.title}
+								{currentFeaturedNews?.title}
 							</h3>
-							<div className="flex items-center gap-2">
-								<div className="size-6 rounded-full bg-slate-300 overflow-hidden relative">
-									<Image
-										src={currentFeaturedNews.authorImg}
-										fill
-										alt={currentFeaturedNews.author}
-										className="object-cover"
-									/>
-								</div>
-								<span className="text-white/90 text-xs font-semibold uppercase tracking-wider">
-									{currentFeaturedNews.author}
-								</span>
-							</div>
 						</div>
 					</div>
 
 					<div className="flex flex-col gap-5">
 						{sideNews.map((news) => (
 							<div
-								key={news.title}
+								key={news.id}
 								className="flex gap-4 items-center p-2 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer group"
 							>
-								<div className="relative w-28 h-20 rounded-xl overflow-hidden shrink-0">
+								<div className="relative w-28 h-20 rounded-xl overflow-hidden shrink-0 bg-slate-100">
 									<Image
-										src={news.image}
+										src={news?.cover?.url || news?.author?.avatar?.url || "/gallery-image1.png"}
 										alt={news.title}
 										fill
 										className="object-cover group-hover:scale-105 transition-transform"
@@ -154,7 +115,7 @@ export default function CommunityNews() {
 										{news.title}
 									</h4>
 									<p className="text-[#94A3B8] text-xs font-medium">
-										{news.date}
+										{dayjs(news.createdAt).format("ddd MMM D YYYY")}
 									</p>
 								</div>
 							</div>
