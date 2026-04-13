@@ -4,11 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 
+import OutboundLink from "@/components/shared/OutboundLink";
+
 const navLinks = [
 	{ label: "CDS Groups", href: "/cds-groups" },
 	{ label: "LGAs", href: "/states-and-lga" },
+	{ label: "Departments", href: "/departments" },
+	{ label: "Mobilization", href: "/mobilization" },
+	{ label: "FAQ", href: "/faq" },
 	{ label: "Careers", href: "/careers-and-placements" },
-	{ label: "Forum", href: "/social-forum" },
 ];
 
 export default function Header() {
@@ -88,14 +92,13 @@ export default function Header() {
 							</Link>
 						))}
 						<div className="pt-3 border-t border-slate-100 mt-2">
-							<a
+							<OutboundLink
 								href="https://portal.nysc.org.ng/nysc"
-								target="_blank"
-								rel="noopener noreferrer"
+								trackingLabel="header-mobile-portal"
 								className="btn btn--brand btn--size-default w-full rounded-lg font-semibold text-sm"
 							>
 								Go to NYSC Portal
-							</a>
+							</OutboundLink>
 						</div>
 					</nav>
 				</div>
