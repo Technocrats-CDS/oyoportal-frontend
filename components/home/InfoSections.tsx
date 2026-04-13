@@ -1,38 +1,24 @@
 import Link from "next/link";
-import Image from "next/image";
+import OutboundLink from "@/components/shared/OutboundLink";
+import dayjs from "dayjs";
+
+import {
+	featuredLinks,
+	mobilizationSchedule,
+	stakeholders,
+} from "@/lib/oyo-content";
 
 export default function InfoSections() {
-	const events = [
-		{
-			month: "OCT",
-			day: "24",
-			title: "State-wide Sanitation Exercise",
-			time: "07:30 AM • Ikeja Environs",
-		},
-		{
-			month: "OCT",
-			day: "27",
-			title: "Skills Acquisition (SAED) Seminar",
-			time: "10:00 AM • NYSC Orient. Camp",
-		},
-		{
-			month: "NOV",
-			day: "02",
-			title: "Governor's Honors Briefing",
-			time: "12:00 PM • State House",
-		},
-	];
+	const upcomingDates = mobilizationSchedule.slice(0, 3);
+	const quickLinks = featuredLinks;
 
 	return (
 		<section className="w-full px-4 md:px-6 lg:px-8 py-6">
 			<div className="max-w-7xl mx-auto">
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-					{/* Upcoming Events */}
 					<div className="card flex flex-col">
 						<div className="flex justify-between items-center mb-5">
-							<h3 className="text-heading font-bold text-lg">
-								Upcoming Events
-							</h3>
+							<h3 className="text-heading font-bold text-lg">Upcoming Dates</h3>
 							<div className="size-9 rounded-lg bg-blue-50 flex items-center justify-center">
 								<span className="material-icons text-blue-500 text-[18px]">
 									event
@@ -41,14 +27,17 @@ export default function InfoSections() {
 						</div>
 
 						<div className="flex flex-col gap-4 flex-1">
-							{events.map((event) => (
-								<div key={event.title} className="flex gap-3.5">
-									<div className="flex flex-col items-center justify-center bg-(--brand-50) w-11 h-13 rounded-lg shrink-0">
+							{upcomingDates.map((event) => (
+								<div
+									key={`${event.date}-${event.title}`}
+									className="flex gap-3.5"
+								>
+									<div className="flex flex-col items-center justify-center bg-(--brand-50) w-12 h-14 rounded-lg shrink-0">
 										<span className="text-brand font-bold text-[10px] uppercase leading-tight">
-											{event.month}
+											{dayjs(event.date).format("MMM")}
 										</span>
 										<span className="text-brand font-bold text-lg leading-tight">
-											{event.day}
+											{dayjs(event.date).format("DD")}
 										</span>
 									</div>
 									<div>
@@ -56,77 +45,91 @@ export default function InfoSections() {
 											{event.title}
 										</h4>
 										<p className="text-slate-400 text-xs mb-1.5">
-											{event.time}
+											{event.venue}
 										</p>
-										<button
-											type="button"
-											className="inline-flex items-center gap-1 text-brand font-semibold text-xs hover:opacity-80 transition-opacity"
-										>
-											<span className="material-icons text-[14px]">
-												notifications_none
-											</span>
-											Remind Me
-										</button>
+										<p className="text-xs text-slate-500 leading-relaxed">
+											{event.note}
+										</p>
 									</div>
 								</div>
 							))}
 						</div>
 
 						<Link
-							href="/calendar"
+							href="/mobilization"
 							className="btn btn--outline-brand btn--size-default w-full mt-5 rounded-lg font-semibold text-xs"
 						>
-							View Calendar
+							View Mobilization
 						</Link>
 					</div>
 
-					{/* PCM Guides and Tips */}
 					<div className="card flex flex-col">
 						<div className="flex justify-between items-center mb-5">
-							<h3 className="text-heading font-bold text-lg">
-								PCM Guides &amp; Tips
-							</h3>
+							<h3 className="text-heading font-bold text-lg">Quick Links</h3>
 							<div className="size-9 rounded-lg bg-amber-50 flex items-center justify-center">
 								<span className="material-icons text-amber-500 text-[18px]">
-									lightbulb
+									link
 								</span>
 							</div>
 						</div>
-						<div className="flex flex-col gap-3.5 text-sm flex-1 leading-relaxed text-slate-600">
-							<p>
-								You are strictly advised not to travel at night. Break your
-								journey once it is 6pm.
-							</p>
-							<p>
-								Ensure you board vehicles from designated parks and not by the
-								road side. You must be security conscious.
-							</p>
-							<p>
-								Visit the NYSC official website{" "}
-								<a
-									href="https://www.nysc.gov.ng"
-									target="_blank"
-									rel="noopener noreferrer"
-									className="text-brand font-semibold hover:underline"
-								>
-									www.nysc.gov.ng
-								</a>{" "}
-								for State Coordinators&apos; contacts.
-							</p>
+
+						<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1">
+							{quickLinks.map((link) => {
+								const sharedClassName =
+									"group flex flex-col justify-between gap-3 rounded-xl border border-slate-100 bg-slate-50/60 p-4 hover:bg-white hover:border-brand/20 transition-all";
+
+								return link.external ? (
+									<OutboundLink
+										key={link.title}
+										href={link.href}
+										trackingLabel={link.trackingLabel}
+										target="_blank"
+										rel="noopener noreferrer"
+										className={sharedClassName}
+									>
+										<span className="inline-flex size-10 items-center justify-center rounded-xl bg-white text-brand shadow-sm">
+											<span className="material-icons text-[20px]">
+												{link.icon}
+											</span>
+										</span>
+										<div>
+											<h4 className="text-sm font-semibold text-heading group-hover:text-brand transition-colors">
+												{link.title}
+											</h4>
+											<p className="mt-1 text-xs leading-relaxed text-slate-500">
+												{link.description}
+											</p>
+										</div>
+									</OutboundLink>
+								) : (
+									<Link
+										key={link.title}
+										href={link.href}
+										className={sharedClassName}
+									>
+										<span className="inline-flex size-10 items-center justify-center rounded-xl bg-white text-brand shadow-sm">
+											<span className="material-icons text-[20px]">
+												{link.icon}
+											</span>
+										</span>
+										<div>
+											<h4 className="text-sm font-semibold text-heading group-hover:text-brand transition-colors">
+												{link.title}
+											</h4>
+											<p className="mt-1 text-xs leading-relaxed text-slate-500">
+												{link.description}
+											</p>
+										</div>
+									</Link>
+								);
+							})}
 						</div>
-						<Link
-							href="/guides"
-							className="btn btn--outline-brand btn--size-default w-full mt-5 rounded-lg font-semibold text-xs"
-						>
-							View All Guides
-						</Link>
 					</div>
 
-					{/* State Coordinator */}
 					<div className="card flex flex-col">
 						<div className="flex justify-between items-center mb-5">
 							<h3 className="text-heading font-bold text-lg">
-								State Coordinator
+								Stakeholders & Contacts
 							</h3>
 							<div className="size-9 rounded-lg bg-(--brand-50) flex items-center justify-center">
 								<span className="material-icons text-brand text-[18px]">
@@ -134,36 +137,41 @@ export default function InfoSections() {
 								</span>
 							</div>
 						</div>
-						<div className="flex items-center gap-3.5 mb-5">
-							<div className="size-12 rounded-full bg-slate-200 overflow-hidden shrink-0 ring-2 ring-(--brand-100)">
-								<Image
-									src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200"
-									alt="State Coordinator"
-									width={48}
-									height={48}
-									className="w-full h-full object-cover"
-								/>
-							</div>
-							<div>
-								<h4 className="text-heading font-bold text-sm">
-									Barr. Yetunde Olayinka
-								</h4>
-								<p className="text-slate-400 text-xs mt-0.5">
-									State Coordinator, Oyo
-								</p>
-							</div>
+
+						<div className="flex flex-col gap-4 flex-1">
+							{stakeholders.map((stakeholder, index) => (
+								<div
+									key={stakeholder.name}
+									className={`flex gap-3 rounded-xl p-3 ${index < stakeholders.length - 1 ? "border-b border-slate-100 pb-4" : ""}`}
+								>
+									<div className="size-11 rounded-xl bg-(--brand-50) flex items-center justify-center shrink-0">
+										<span className="material-icons text-brand text-[18px]">
+											badge
+										</span>
+									</div>
+									<div className="min-w-0 flex-1">
+										<h4 className="text-heading font-semibold text-sm leading-tight">
+											{stakeholder.name}
+										</h4>
+										<p className="text-xs uppercase tracking-wider text-slate-400 mt-1">
+											{stakeholder.role}
+										</p>
+										<p className="text-sm leading-relaxed text-slate-600 mt-2">
+											{stakeholder.summary}
+										</p>
+										<Link
+											href={stakeholder.href}
+											className="inline-flex items-center gap-1 text-brand text-xs font-semibold mt-3 hover:underline"
+										>
+											{stakeholder.label}
+											<span className="material-icons text-[14px]">
+												chevron_right
+											</span>
+										</Link>
+									</div>
+								</div>
+							))}
 						</div>
-						<blockquote className="text-sm flex-1 leading-relaxed text-slate-600 italic border-l-2 border-(--brand-200) pl-4">
-							&ldquo;Welcome to OYO State NYSC. We are committed to making your
-							service year productive and impactful. Stay focused and serve with
-							pride.&rdquo;
-						</blockquote>
-						<Link
-							href="/coordinator"
-							className="btn btn--outline-brand btn--size-default w-full mt-5 rounded-lg font-semibold text-xs"
-						>
-							Read Full Message
-						</Link>
 					</div>
 				</div>
 			</div>

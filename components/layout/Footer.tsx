@@ -1,5 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ComponentType, SVGProps } from "react";
+
+import OutboundLink from "@/components/shared/OutboundLink";
 import X from "@/public/x.svg";
 import Instagram from "@/public/instagram.svg";
 
@@ -10,7 +13,7 @@ const footerSections = [
 			{ name: "CDS Groups", href: "/cds-groups" },
 			{ name: "Jobs & Placements", href: "/careers-and-placements" },
 			{ name: "LGA & Locations", href: "/states-and-lga" },
-			{ name: "Social Forum", href: "/social-forum" },
+			{ name: "Departments", href: "/departments" },
 		],
 	},
 	{
@@ -24,7 +27,11 @@ const footerSections = [
 	},
 ];
 
-const socialLinks: { name: string; icon: any; href: string }[] = [
+const socialLinks: {
+	name: string;
+	icon: ComponentType<SVGProps<SVGSVGElement>>;
+	href: string;
+}[] = [
 	{ name: "X", icon: X, href: "#" },
 	{ name: "Instagram", icon: Instagram, href: "#" },
 ];
@@ -47,14 +54,13 @@ export default function Footer() {
 							Access your dashboard, check placements, and stay updated.
 						</p>
 					</div>
-					<a
+					<OutboundLink
 						href="https://portal.nysc.org.ng/nysc"
-						target="_blank"
-						rel="noopener noreferrer"
+						trackingLabel="footer-portal-cta"
 						className="btn btn--size-lg bg-white text-(--brand-700) font-bold rounded-xl px-8 hover:bg-white/90 transition-colors shrink-0 text-sm"
 					>
 						Go to NYSC Portal
-					</a>
+					</OutboundLink>
 				</div>
 			</div>
 
@@ -141,14 +147,13 @@ export default function Footer() {
 								{link.name}
 							</Link>
 						))}
-						<a
+						<OutboundLink
 							href="https://www.nysc.gov.ng/"
-							target="_blank"
-							rel="noopener noreferrer"
+							trackingLabel="footer-official-site"
 							className="hover:text-white/60 transition-colors"
 						>
 							NYSC Official
-						</a>
+						</OutboundLink>
 					</div>
 				</div>
 			</div>
